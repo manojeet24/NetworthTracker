@@ -6,12 +6,23 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 public class Ticker {
 
-    public String getTicker(String Company){
+    private final StoreTicker storeTicker = new StoreTicker();
+    public String getTicker(String Company, Map<String,String> tickerList){
         Company = Company.trim();
         Company += " Ltd";
+
+        //Look in Map first
+        if(tickerList.containsKey(Company)){
+            System.out.println("Found in Map: " + tickerList.get(Company));
+            return tickerList.get(Company);
+        }
+
+
         String url = "https://www.tickertape.in/stocks?filter=" + Company.charAt(0);
 
         String ticker = "";
@@ -25,7 +36,8 @@ public class Ticker {
 //                    System.out.println("Stocks Text: " + stock);
                     String tick = stock.attr("href");
                     ticker = extractTicker(tick);
-                    System.out.println(ticker);
+                    storeTicker.addTicker(Company,ticker);
+                    System.out.println("Ticker:" + ticker);
                     return ticker;
                 }
             }
@@ -33,7 +45,7 @@ public class Ticker {
         catch (Exception e){
             e.printStackTrace();
         }
-        System.out.println("Ticker:" + Company);
+        System.out.println("Bad Ticker:" + Company);
         return ticker;
     }
 
