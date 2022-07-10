@@ -16,8 +16,7 @@ public class PortfolioController {
 
     Ticker ticker = new Ticker();
 
-    LoadFile loadFile = new LoadFile();
-    private final String filePath = "./src/main/resources/Portfolio.txt";
+    LoadFile loadFile = new LoadFile("./src/main/resources/Portfolio.txt");
 
     keyValue writeFile = new keyValue();
 
@@ -27,8 +26,7 @@ public class PortfolioController {
 
     public float getPortfolio(Map<String,String> tickerList){
         //Loading my Portfolio from Portfolio.txt
-        Map<String,String> portfolio = loadFile.getMapfromFile(filePath);
-
+        Map<String,String> portfolio = loadFile.getMap();
         float price_float = 0;
         float quantity_float = 0;
         float stock_value = 0;

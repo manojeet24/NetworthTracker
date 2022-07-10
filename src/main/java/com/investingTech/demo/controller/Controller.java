@@ -20,14 +20,13 @@ public class Controller {
 
     Ticker ticker = new Ticker();
 
-    private Map<String, String> tickerList;
+    LoadFile loadFile = new LoadFile("./src/main/resources/Company_Ticker.txt");
+
+    private final Map<String, String> tickerList = loadFile.getMap();
     private final PortfolioController portfolio = new PortfolioController();
 
     @GetMapping("/")
     public String load(){
-        LoadFile loadFile = new LoadFile();
-        String filePath = "./src/main/resources/Company_Ticker.txt";
-        tickerList = loadFile.getMapfromFile(filePath);
         return "Search a Company";
     }
 

@@ -4,7 +4,6 @@ Gabriel India Ltd:GABR
 Affle (India) Ltd:AFFL
 Affle India Ltd:AFFL
 Permanent Magnets Ltd:PERM
-Permanent Magnets Ltd:PERM
 Tarsons Products Ltd:TARS
 Latent View Analytics Ltd:LATE
 Macpower CNC Machines Ltd:MACP
@@ -20,122 +19,8 @@ MMP Industries Ltd:MMPI
 Meghmani Finechem Ltd:MFM
 Infobeans Technologies Ltd:IFOB
 Dharamsi Morarji Chemical Co Ltd:DHARA
-CG VAK Software and Exports Ltd:CGV
-Tatva Chintan Pharma Chem Ltd:TATV
-Saksoft Ltd:SAKS
-HDFC Life Insurance Company Ltd:HDFL
-Computer Age Management Services Ltd:CAMC
-Route Mobile Ltd:ROUT
-Tanla Platforms Ltd:TNSL
-MTAR Technologies Ltd:MTA
-Prince Pipes and Fittings Ltd:PRCE
-Intellect Design Arena Ltd:INEE
-KPIT Technologies Ltd:KPIE
-Praj Industries Ltd:PRAJ
-Gujarat Themis Biosyn Ltd:GUJTH
-CE Info Systems Ltd:MAPM
-Kotak Mahindra Bank Ltd:KTKM
-Indian Energy Exchange Ltd:IIAN
-Titan Biotech Ltd:TITAN
 Resonance Specialties Ltd:RESO
-Samrat Pharmachem Ltd:SAMR
-Time Technoplast Ltd:TIME
-Happiest Minds Technologies Ltd:HAPP
-Permanent Magnets Ltd:PERM
-Tarsons Products Ltd:TARS
-Latent View Analytics Ltd:LATE
-Macpower CNC Machines Ltd:MACP
-HFCL Ltd:HFCL
-Likhitha Infrastructure Ltd:LIKH
-Archit Organosys Ltd:ARCH
-Acrysil Ltd:ACR
-Ami Organics Ltd:AMIO
-Adani Wilmar Ltd:AWL
-Sona BLW Precision Forgings Ltd:SONAC
-Clean Science and Technology Ltd:CLE
-MMP Industries Ltd:MMPI
-Resonance Specialties Ltd:RESO
-Meghmani Finechem Ltd:MFM
-Infobeans Technologies Ltd:IFOB
-Dharamsi Morarji Chemical Co Ltd:DHARA
 CG VAK Software and Exports Ltd:CGV
-Affle (India) Ltd:AFFL
-Tatva Chintan Pharma Chem Ltd:TATV
-Saksoft Ltd:SAKS
-Samrat Pharmachem Ltd:SAMR
-Time Technoplast Ltd:TIME
-HDFC Life Insurance Company Ltd:HDFL
-Computer Age Management Services Ltd:CAMC
-Route Mobile Ltd:ROUT
-Tanla Platforms Ltd:TNSL
-MTAR Technologies Ltd:MTA
-Prince Pipes and Fittings Ltd:PRCE
-Intellect Design Arena Ltd:INEE
-Happiest Minds Technologies Ltd:HAPP
-KPIT Technologies Ltd:KPIE
-Praj Industries Ltd:PRAJ
-Gujarat Themis Biosyn Ltd:GUJTH
-CE Info Systems Ltd:MAPM
-Kotak Mahindra Bank Ltd:KTKM
-Indian Energy Exchange Ltd:IIAN
-Titan Biotech Ltd:TITAN
-Permanent Magnets Ltd:PERM
-Tarsons Products Ltd:TARS
-Latent View Analytics Ltd:LATE
-Macpower CNC Machines Ltd:MACP
-HFCL Ltd:HFCL
-Likhitha Infrastructure Ltd:LIKH
-Archit Organosys Ltd:ARCH
-Acrysil Ltd:ACR
-Ami Organics Ltd:AMIO
-Adani Wilmar Ltd:AWL
-Sona BLW Precision Forgings Ltd:SONAC
-Clean Science and Technology Ltd:CLE
-MMP Industries Ltd:MMPI
-Resonance Specialties Ltd:RESO
-Meghmani Finechem Ltd:MFM
-Infobeans Technologies Ltd:IFOB
-Dharamsi Morarji Chemical Co Ltd:DHARA
-CG VAK Software and Exports Ltd:CGV
-Affle (India) Ltd:AFFL
-Tatva Chintan Pharma Chem Ltd:TATV
-Saksoft Ltd:SAKS
-Samrat Pharmachem Ltd:SAMR
-Time Technoplast Ltd:TIME
-HDFC Life Insurance Company Ltd:HDFL
-Computer Age Management Services Ltd:CAMC
-Route Mobile Ltd:ROUT
-Tanla Platforms Ltd:TNSL
-MTAR Technologies Ltd:MTA
-Prince Pipes and Fittings Ltd:PRCE
-Intellect Design Arena Ltd:INEE
-Happiest Minds Technologies Ltd:HAPP
-KPIT Technologies Ltd:KPIE
-Praj Industries Ltd:PRAJ
-Gujarat Themis Biosyn Ltd:GUJTH
-CE Info Systems Ltd:MAPM
-Kotak Mahindra Bank Ltd:KTKM
-Indian Energy Exchange Ltd:IIAN
-Titan Biotech Ltd:TITAN
-Permanent Magnets Ltd:PERM
-Tarsons Products Ltd:TARS
-Latent View Analytics Ltd:LATE
-Macpower CNC Machines Ltd:MACP
-HFCL Ltd:HFCL
-Likhitha Infrastructure Ltd:LIKH
-Archit Organosys Ltd:ARCH
-Acrysil Ltd:ACR
-Ami Organics Ltd:AMIO
-Adani Wilmar Ltd:AWL
-Sona BLW Precision Forgings Ltd:SONAC
-Clean Science and Technology Ltd:CLE
-MMP Industries Ltd:MMPI
-Resonance Specialties Ltd:RESO
-Meghmani Finechem Ltd:MFM
-Infobeans Technologies Ltd:IFOB
-Dharamsi Morarji Chemical Co Ltd:DHARA
-CG VAK Software and Exports Ltd:CGV
-Affle (India) Ltd:AFFL
 Tatva Chintan Pharma Chem Ltd:TATV
 Saksoft Ltd:SAKS
 Samrat Pharmachem Ltd:SAMR

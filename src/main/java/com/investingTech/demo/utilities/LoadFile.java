@@ -10,9 +10,9 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class LoadFile {
-    public  Map<String, String> getMapfromFile(String filePath) {
-        Map<String, String> map = new HashMap<>();
 
+    public Map<String, String> map = new HashMap<>();
+    public LoadFile(String filePath) {
         try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
             lines.filter(line -> line.contains(":"))
                     .forEach(line -> {
@@ -21,12 +21,14 @@ public class LoadFile {
                         String value = keyValuePair[1];
 //                        System.out.println("key: " + key);
 //                        System.out.println("value: " + value);
-                        map.putIfAbsent(key,value);
+                        map.putIfAbsent(key, value);
                     });
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return map;
     }
 
+    public Map<String, String> getMap() {
+        return map;
+    }
 }
