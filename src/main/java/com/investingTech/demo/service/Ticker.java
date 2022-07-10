@@ -1,5 +1,6 @@
 package com.investingTech.demo.service;
 
+import com.investingTech.demo.utilities.keyValue;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,13 +12,14 @@ import java.util.Map;
 @Component
 public class Ticker {
 
-    private final StoreTicker storeTicker = new StoreTicker();
+    private final keyValue storeTicker = new keyValue();
     public String getTicker(String Company, Map<String,String> tickerList){
+
         Company = Company.trim();
         Company += " Ltd";
 
         //Look in Map first
-        if(tickerList.containsKey(Company)){
+        if(tickerList!=null && tickerList.containsKey(Company)){
             System.out.println("Found in Map: " + tickerList.get(Company));
             return tickerList.get(Company);
         }
@@ -36,7 +38,8 @@ public class Ticker {
 //                    System.out.println("Stocks Text: " + stock);
                     String tick = stock.attr("href");
                     ticker = extractTicker(tick);
-                    storeTicker.addTicker(Company,ticker);
+                    String filePath = "./src/main/resources/Company_Ticker.txt";
+                    storeTicker.addNode(Company,ticker,filePath);
                     System.out.println("Ticker:" + ticker);
                     return ticker;
                 }

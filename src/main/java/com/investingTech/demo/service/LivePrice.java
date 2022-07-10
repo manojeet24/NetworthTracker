@@ -1,5 +1,6 @@
 package com.investingTech.demo.service;
 
+import com.investingTech.demo.models.Stock;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,7 +15,9 @@ public class LivePrice {
     private String price ="";
     private Integer volume = 0;
 
-    public String getPrice(String ticker) {
+    private Stock stock= new Stock();
+
+    public Stock getPrice(String ticker) {
         try {
             String url = "https://api.tickertape.in/stocks/charts/intra/" + ticker;
             JSONObject json = new JSONObject(IOUtils.toString(new URL(url), StandardCharsets.UTF_8));
@@ -27,11 +30,13 @@ public class LivePrice {
             price = obj.get("lp").toString();
             System.out.println("Volume:" + volume);
             System.out.println("Price:" + price);
+            stock.setPrice(price);
+            stock.setVolume(volume);
         }catch (Exception e){
             e.printStackTrace();
-            return "No company Found";
+            System.out.println("No company Found");
         }
-        return "Price: " + price + " and Volume: " + volume;
+        return stock;
     }
 
 }

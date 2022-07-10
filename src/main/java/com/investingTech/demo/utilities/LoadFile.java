@@ -1,6 +1,6 @@
 //This Class is responsible to load a file into a HashMap
 
-package com.investingTech.demo.service;
+package com.investingTech.demo.utilities;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,10 +10,8 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class LoadFile {
-    public  Map<String, String> getTickerList() {
+    public  Map<String, String> getMapfromFile(String filePath) {
         Map<String, String> map = new HashMap<>();
-
-        String filePath = "./src/main/resources/Company_Ticker.txt";
 
         try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
             lines.filter(line -> line.contains(":"))

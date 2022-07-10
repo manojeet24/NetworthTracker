@@ -1,9 +1,9 @@
 package com.investingTech.demo.controller;
 
+import com.investingTech.demo.models.Stock;
 import com.investingTech.demo.service.LivePrice;
-import com.investingTech.demo.service.LoadFile;
+import com.investingTech.demo.utilities.LoadFile;
 import com.investingTech.demo.service.Ticker;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,26 +16,32 @@ import java.util.Map;
 @RestController
 public class Controller {
 
-    @Autowired
-    LivePrice price;
+    LivePrice price = new LivePrice();
 
-    @Autowired
-    Ticker ticker;
+    Ticker ticker = new Ticker();
 
     private Map<String, String> tickerList;
+    private final PortfolioController portfolio = new PortfolioController();
 
     @GetMapping("/")
     public String load(){
         LoadFile loadFile = new LoadFile();
-        tickerList = loadFile.getTickerList();
+        String filePath = "./src/main/resources/Company_Ticker.txt";
+        tickerList = loadFile.getMapfromFile(filePath);
         return "Search a Company";
     }
 
     @GetMapping(value = "/{company}")
-    public String stock(@PathVariable("company") String company) {
+    public Stock stock(@PathVariable("company") String company) {
         System.out.println("company:" + company);
         return price.getPrice(ticker.getTicker(company,tickerList));
     }
+
+    @GetMapping("/portfolio")
+    public float portfolioValue(){
+        return portfolio.getPortfolio(tickerList);
+    }
+
     @GetMapping("favicon.ico")
     @ResponseBody
     void returnNoFavicon() {
