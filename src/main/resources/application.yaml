@@ -1,0 +1,5 @@
+get_price_url: "https://api.tickertape.in/stocks/charts/intra/"
+get_ticker_url: "https://www.tickertape.in/stocks?filter="
+portfolio_filePath: "./src/main/resources/Portfolio.txt"
+ticker_filePath: "./src/main/resources/Company_Ticker.txt"
+networthTracking_filePath: "./src/main/resources/NetworthTracking.txt"

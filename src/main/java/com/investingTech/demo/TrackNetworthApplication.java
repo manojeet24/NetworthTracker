@@ -7,7 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TrackNetworthApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TrackNetworthApplication.class, args);
+		try {
+			SpringApplication.run(TrackNetworthApplication.class, args);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }

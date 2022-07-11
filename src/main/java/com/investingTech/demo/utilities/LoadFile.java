@@ -2,6 +2,8 @@
 
 package com.investingTech.demo.utilities;
 
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,10 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
+@Component
 public class LoadFile {
 
     public Map<String, String> map = new HashMap<>();
-    public LoadFile(String filePath) {
+    public Map<String, String> getMap(String filePath) {
         try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
             lines.filter(line -> line.contains(":"))
                     .forEach(line -> {
@@ -26,9 +29,6 @@ public class LoadFile {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public Map<String, String> getMap() {
         return map;
     }
 }

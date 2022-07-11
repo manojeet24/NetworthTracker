@@ -1,29 +1,45 @@
-package com.investingTech.demo.controller;
+package com.investingTech.demo.controllers;
 
+import com.investingTech.demo.config.YamlConfig;
 import com.investingTech.demo.models.Stock;
 import com.investingTech.demo.service.LivePrice;
-import com.investingTech.demo.utilities.LoadFile;
 import com.investingTech.demo.service.Ticker;
-import org.springframework.context.annotation.ComponentScan;
+import com.investingTech.demo.utilities.LoadFile;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 import java.util.Map;
 
-@ComponentScan
+
 @RestController
-public class Controller {
+public class AppController {
 
-    LivePrice price = new LivePrice();
+    @Autowired
+    YamlConfig yamlConfig;
 
-    Ticker ticker = new Ticker();
+    @Autowired
+    LivePrice price;
 
-    LoadFile loadFile = new LoadFile("./src/main/resources/Company_Ticker.txt");
+    @Autowired
+    Ticker ticker;
 
-    private final Map<String, String> tickerList = loadFile.getMap();
-    private final PortfolioController portfolio = new PortfolioController();
+    @Autowired
+    LoadFile loadTickerList;
+
+    private Map<String,String> tickerList;
+
+    @Autowired
+    PortfolioController portfolio;
+
+    @PostConstruct
+    public void runAfterObjectCreated() {
+        tickerList = loadTickerList.getMap(yamlConfig.getTicker_filePath());
+//        System.out.println(tickerList);
+    }
 
     @GetMapping("/")
     public String load(){
@@ -38,7 +54,7 @@ public class Controller {
 
     @GetMapping("/portfolio")
     public float portfolioValue(){
-        return portfolio.getPortfolio(tickerList);
+        return portfolio.getPortfolioValue(tickerList);
     }
 
     @GetMapping("favicon.ico")

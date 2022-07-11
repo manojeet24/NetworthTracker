@@ -1,9 +1,11 @@
 package com.investingTech.demo.service;
 
+import com.investingTech.demo.config.YamlConfig;
 import com.investingTech.demo.models.Stock;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -12,6 +14,9 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class LivePrice {
 
+    @Autowired
+    YamlConfig yamlConfig;
+
     private String price ="";
     private Integer volume = 0;
 
@@ -19,7 +24,7 @@ public class LivePrice {
 
     public Stock getPrice(String ticker) {
         try {
-            String url = "https://api.tickertape.in/stocks/charts/intra/" + ticker;
+            String url =  yamlConfig.getGet_price_url() + ticker;
             JSONObject json = new JSONObject(IOUtils.toString(new URL(url), StandardCharsets.UTF_8));
             System.out.println(url);
             JSONArray dataArray = (JSONArray) json.get("data");

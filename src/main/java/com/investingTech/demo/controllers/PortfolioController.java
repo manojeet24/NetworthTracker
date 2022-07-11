@@ -1,32 +1,41 @@
-package com.investingTech.demo.controller;
+package com.investingTech.demo.controllers;
 
+import com.investingTech.demo.config.YamlConfig;
 import com.investingTech.demo.models.Stock;
 import com.investingTech.demo.service.LivePrice;
-import com.investingTech.demo.utilities.LoadFile;
 import com.investingTech.demo.service.Ticker;
+import com.investingTech.demo.utilities.LoadFile;
 import com.investingTech.demo.utilities.keyValue;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.Map;
 
+@Component
 public class PortfolioController {
 
+    @Autowired
+    private YamlConfig yamlConfig;
 
-    LivePrice price = new LivePrice();
+    @Autowired
+    LivePrice price;
 
-    Ticker ticker = new Ticker();
+    @Autowired
+    Ticker ticker;
 
-    LoadFile loadFile = new LoadFile("./src/main/resources/Portfolio.txt");
-
-    keyValue writeFile = new keyValue();
+    @Autowired
+    keyValue writeFile;
 
     Stock stock = new Stock();
 
     private  float portfolio_value = 0;
 
-    public float getPortfolio(Map<String,String> tickerList){
+    public float getPortfolioValue(Map<String,String> tickerList){
         //Loading my Portfolio from Portfolio.txt
-        Map<String,String> portfolio = loadFile.getMap();
+        LoadFile loadPortfolio = new LoadFile();
+        Map<String,String> portfolio = loadPortfolio.getMap(yamlConfig.getPortfolio_filePath());
+        System.out.println(portfolio.size());
         float price_float = 0;
         float quantity_float = 0;
         float stock_value = 0;
@@ -48,10 +57,9 @@ public class PortfolioController {
             portfolio_value += stock_value;
 
         }
-        System.out.println(portfolio);
 
         //adding portfolio value in Date:Portfolio format in NetworthTracking.txt
-        String filePath = "./src/main/resources/NetworthTracking.txt";
+        String filePath = yamlConfig.getNetworthTracking_filePath();
         String portfolio_value_string = Float.toString(portfolio_value);
         LocalDate date = LocalDate.now();
         System.out.println(date);

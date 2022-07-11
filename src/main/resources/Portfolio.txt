@@ -5,7 +5,7 @@ Adani Wilmar:60
 Infobeans Technologies:130
 CG VAK Software and Exports:100
 Clean Science and Technology:14
-Time Technoplast:325
+Time Technoplast:350
 Dharamsi Morarji Chemical Co:70
 Acrysil:32
 Route Mobile:11
@@ -36,3 +36,4 @@ Ami Organics:5
 Praj Industries:15
 Saksoft:5
 Titan Biotech:15
+Sakar Healthcare:50

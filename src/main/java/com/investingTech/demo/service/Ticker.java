@@ -1,10 +1,12 @@
 package com.investingTech.demo.service;
 
+import com.investingTech.demo.config.YamlConfig;
 import com.investingTech.demo.utilities.keyValue;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -12,6 +14,8 @@ import java.util.Map;
 @Component
 public class Ticker {
 
+    @Autowired
+    YamlConfig yamlConfig;
     private final keyValue storeTicker = new keyValue();
     public String getTicker(String Company, Map<String,String> tickerList){
 
@@ -25,7 +29,7 @@ public class Ticker {
         }
 
 
-        String url = "https://www.tickertape.in/stocks?filter=" + Company.charAt(0);
+        String url = yamlConfig.getGet_ticker_url() + Company.charAt(0);
 
         String ticker = "";
 
@@ -38,7 +42,7 @@ public class Ticker {
 //                    System.out.println("Stocks Text: " + stock);
                     String tick = stock.attr("href");
                     ticker = extractTicker(tick);
-                    String filePath = "./src/main/resources/Company_Ticker.txt";
+                    String filePath = yamlConfig.getTicker_filePath();
                     storeTicker.addNode(Company,ticker,filePath);
                     System.out.println("Ticker:" + ticker);
                     return ticker;
