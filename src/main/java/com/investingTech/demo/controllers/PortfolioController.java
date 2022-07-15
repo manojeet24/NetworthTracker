@@ -29,11 +29,10 @@ public class PortfolioController {
 
     Stock stock = new Stock();
 
-    public float getPortfolioValue(Map<String,String> tickerList, Map<String,String> networthTrackingList){
+    public Map<String,String> trackPortfolio(Map<String,String> tickerList,Map<String,String> networthTrackingList){
         //Loading my Portfolio from Portfolio.txt
-        LoadFile loadPortfolio = new LoadFile();
-        Map<String,String> portfolio = loadPortfolio.getMap(yamlConfig.getPortfolio_filePath());
-        System.out.println(portfolio.size());
+        LoadFile loadMapfromFile = new LoadFile();
+        Map<String,String> portfolio = loadMapfromFile.getMap(yamlConfig.getPortfolio_filePath());
         float price_float = 0;
         float quantity_float = 0;
         float stock_value = 0;
@@ -67,10 +66,11 @@ public class PortfolioController {
             writeFile.MaptoFile(networthTrackingList,filePath);
         }
         else {
+            networthTrackingList.put(date.toString(),portfolio_value_string);
             writeFile.addNode(date.toString(), portfolio_value_string, filePath);
         }
 
-        return portfolio_value;
+        return networthTrackingList;
     }
 
 }

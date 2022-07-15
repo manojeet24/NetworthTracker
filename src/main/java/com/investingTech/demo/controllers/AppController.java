@@ -49,10 +49,11 @@ public class AppController {
         System.out.println("company:" + company);
         return price.getPrice(company,ticker.getTicker(company,tickerList));
     }
-
-    @GetMapping("/portfolio")
-    public float portfolioValue(){
-        return portfolio.getPortfolioValue(tickerList,networthTrackingList);
+    
+    @GetMapping("/trackportfolio")
+    public Map<String,String> trackPortfolio(){
+        networthTrackingList = portfolio.trackPortfolio(tickerList,networthTrackingList);
+        return networthTrackingList;
     }
 
     @GetMapping("favicon.ico")
