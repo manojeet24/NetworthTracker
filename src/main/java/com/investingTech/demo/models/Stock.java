@@ -1,8 +1,18 @@
 package com.investingTech.demo.models;
 
 public class Stock {
+
+    private String name;
     private String price;
     private Integer volume;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getPrice() {
         return price;

@@ -22,7 +22,7 @@ public class LivePrice {
 
     private Stock stock= new Stock();
 
-    public Stock getPrice(String ticker) {
+    public Stock getPrice(String company,String ticker) {
         try {
             String url =  yamlConfig.getGet_price_url() + ticker;
             JSONObject json = new JSONObject(IOUtils.toString(new URL(url), StandardCharsets.UTF_8));
@@ -35,10 +35,14 @@ public class LivePrice {
             price = obj.get("lp").toString();
             System.out.println("Volume:" + volume);
             System.out.println("Price:" + price);
+            stock.setName(company);
             stock.setPrice(price);
             stock.setVolume(volume);
         }catch (Exception e){
             e.printStackTrace();
+            stock.setName("Invalid Company");
+            stock.setPrice("###");
+            stock.setVolume(-1);
             System.out.println("No company Found");
         }
         return stock;

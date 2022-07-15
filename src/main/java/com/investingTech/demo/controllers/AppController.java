@@ -6,15 +6,12 @@ import com.investingTech.demo.service.LivePrice;
 import com.investingTech.demo.service.Ticker;
 import com.investingTech.demo.utilities.LoadFile;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
 
-
+@CrossOrigin(origins ="http://localhost:3000/")
 @RestController
 public class AppController {
 
@@ -28,16 +25,17 @@ public class AppController {
     Ticker ticker;
 
     @Autowired
-    LoadFile loadTickerList;
+    LoadFile loadList;
 
-    private Map<String,String> tickerList;
+    private Map<String,String> tickerList,networthTrackingList;
 
     @Autowired
     PortfolioController portfolio;
 
     @PostConstruct
     public void runAfterObjectCreated() {
-        tickerList = loadTickerList.getMap(yamlConfig.getTicker_filePath());
+        tickerList = loadList.getMap(yamlConfig.getTicker_filePath());
+        networthTrackingList = loadList.getMap(yamlConfig.getNetworthTracking_filePath());
 //        System.out.println(tickerList);
     }
 
@@ -49,12 +47,12 @@ public class AppController {
     @GetMapping(value = "/{company}")
     public Stock stock(@PathVariable("company") String company) {
         System.out.println("company:" + company);
-        return price.getPrice(ticker.getTicker(company,tickerList));
+        return price.getPrice(company,ticker.getTicker(company,tickerList));
     }
 
     @GetMapping("/portfolio")
     public float portfolioValue(){
-        return portfolio.getPortfolioValue(tickerList);
+        return portfolio.getPortfolioValue(tickerList,networthTrackingList);
     }
 
     @GetMapping("favicon.ico")

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.Writer;
+import java.util.Map;
 
 @Component
 public class keyValue {
@@ -15,7 +16,22 @@ public class keyValue {
         try {
             Writer output;
             output = new BufferedWriter(new FileWriter(filePath, true));  //appends
-            output.append("\n").append(key).append(":").append(value);
+            output.append(key).append(":").append(value).append("\n");
+            output.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void MaptoFile(Map<String,String> list, String filePath){
+
+        try {
+            Writer output;
+            output = new BufferedWriter(new FileWriter(filePath));  //overwrites
+            for (String key : list.keySet()) {
+                String value = list.get(key);
+                output.append(key).append(":").append(value).append("\n");
+            }
             output.close();
         }catch (Exception e){
             e.printStackTrace();

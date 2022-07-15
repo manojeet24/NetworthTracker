@@ -29,9 +29,7 @@ public class PortfolioController {
 
     Stock stock = new Stock();
 
-    private  float portfolio_value = 0;
-
-    public float getPortfolioValue(Map<String,String> tickerList){
+    public float getPortfolioValue(Map<String,String> tickerList, Map<String,String> networthTrackingList){
         //Loading my Portfolio from Portfolio.txt
         LoadFile loadPortfolio = new LoadFile();
         Map<String,String> portfolio = loadPortfolio.getMap(yamlConfig.getPortfolio_filePath());
@@ -39,7 +37,7 @@ public class PortfolioController {
         float price_float = 0;
         float quantity_float = 0;
         float stock_value = 0;
-
+        float portfolio_value =0;
         //Iterating over my Portfolio
         for (String company : portfolio.keySet()){
             String quantity = portfolio.get(company);
@@ -48,7 +46,8 @@ public class PortfolioController {
             System.out.println("Qty: " + quantity);
             quantity_float = Float.parseFloat(quantity);
 
-            stock = price.getPrice(ticker.getTicker(company,tickerList));
+            //finding CMP of the Stock
+            stock = price.getPrice(company,ticker.getTicker(company,tickerList));
 
             price_float = Float.parseFloat(stock.getPrice());
 
@@ -62,8 +61,14 @@ public class PortfolioController {
         String filePath = yamlConfig.getNetworthTracking_filePath();
         String portfolio_value_string = Float.toString(portfolio_value);
         LocalDate date = LocalDate.now();
-        System.out.println(date);
-        writeFile.addNode(date.toString(),portfolio_value_string,filePath);
+        if(networthTrackingList.containsKey(date.toString())){
+            networthTrackingList.remove(date.toString());
+            networthTrackingList.put(date.toString(),portfolio_value_string);
+            writeFile.MaptoFile(networthTrackingList,filePath);
+        }
+        else {
+            writeFile.addNode(date.toString(), portfolio_value_string, filePath);
+        }
 
         return portfolio_value;
     }
