@@ -42,3 +42,4 @@ Indian Energy Exchange Ltd:IIAN
 Titan Biotech Ltd:TITAN
 Avantel Ltd:AVA
 Sakar Healthcare Ltd:SAKA
+HDFC Bank Ltd:HDBK

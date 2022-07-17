@@ -13,6 +13,8 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Map;
 
+//ToDO: Connect with Database
+
 @CrossOrigin(origins ="http://localhost:3000/")
 @RestController
 public class AppController {
