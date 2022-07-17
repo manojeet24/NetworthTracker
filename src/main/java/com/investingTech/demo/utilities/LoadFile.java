@@ -2,7 +2,7 @@
 
 package com.investingTech.demo.utilities;
 
-import com.investingTech.demo.models.DataPoint;
+import com.investingTech.demo.models.TrackNetworth;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -34,20 +34,20 @@ public class LoadFile {
         return map;
     }
 
-    public ArrayList<DataPoint> getArray(String filePath) {
-        ArrayList<DataPoint> dataPoints = new ArrayList<>();
+    public ArrayList<TrackNetworth> getArray(String filePath) {
+        ArrayList<TrackNetworth> trackNetworths = new ArrayList<>();
         try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
             lines.filter(line -> line.contains(":"))
                     .forEach(line -> {
-                        DataPoint dataPoint = new DataPoint();
+                        TrackNetworth trackNetworth = new TrackNetworth();
                         String[] keyValuePair = line.split(":", 2);
-                        dataPoint.setDate(keyValuePair[0]);
-                        dataPoint.setNetWorth(keyValuePair[1]);
-                        dataPoints.add(dataPoint);
+                        trackNetworth.setDate(keyValuePair[0]);
+                        trackNetworth.setNetworth(keyValuePair[1]);
+                        trackNetworths.add(trackNetworth);
                     });
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return dataPoints;
+        return trackNetworths;
     }
 }
