@@ -130,7 +130,7 @@ public class PortfolioController {
                 }
             }
         }
-        return operation + qty + " " + company + " Executed Successfully";
+        return operation + " " + qty + " " + company + " Executed Successfully";
     }
 
 

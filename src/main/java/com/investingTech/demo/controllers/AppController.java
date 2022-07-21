@@ -13,7 +13,8 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
 
-//ToDO: Connect with Database
+//Next Release
+//ToDo: Add Invested amount column in TrackNetworth => Add Buying Price column in Portfolio Table
 
 @CrossOrigin(origins ="http://localhost:3000/")
 @RestController
