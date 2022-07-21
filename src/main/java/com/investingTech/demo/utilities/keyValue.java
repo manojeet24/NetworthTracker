@@ -2,7 +2,7 @@
 
 package com.investingTech.demo.utilities;
 
-import com.investingTech.demo.models.DataPoint;
+import com.investingTech.demo.models.TrackNetworth;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedWriter;
@@ -40,14 +40,14 @@ public class keyValue {
         }
     }
 
-    public void ArraytoFile(ArrayList<DataPoint> list, String filePath){
+    public void ArraytoFile(ArrayList<TrackNetworth> list, String filePath){
 
         try {
             Writer output;
             output = new BufferedWriter(new FileWriter(filePath));  //overwrites
             for (int index = 0; index< list.size();index++) {
                 String key = list.get(index).getDate();
-                String value = list.get(index).getNetWorth();
+                String value = list.get(index).getNetworth();
                 output.append(key).append(":").append(value).append("\n");
             }
             output.close();

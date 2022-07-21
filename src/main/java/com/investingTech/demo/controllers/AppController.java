@@ -1,8 +1,8 @@
 package com.investingTech.demo.controllers;
 
 import com.investingTech.demo.config.YamlConfig;
-import com.investingTech.demo.models.DataPoint;
 import com.investingTech.demo.models.Stock;
+import com.investingTech.demo.models.TrackNetworth;
 import com.investingTech.demo.service.LivePrice;
 import com.investingTech.demo.service.Ticker;
 import com.investingTech.demo.utilities.LoadFile;
@@ -10,10 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
-//ToDO: Connect with Database
+//Next Release
+//ToDo: Add Invested amount column in TrackNetworth => Add Buying Price column in Portfolio Table
 
 @CrossOrigin(origins ="http://localhost:3000/")
 @RestController
@@ -31,19 +32,15 @@ public class AppController {
     @Autowired
     LoadFile loadList;
 
-    private Map<String,String> tickerList,portfolioList;
-
-    private ArrayList<DataPoint> networthTrackingList;
+    private Map<String,String> tickerList;
 
     @Autowired
     PortfolioController portfolio;
 
+
     @PostConstruct
     public void runAfterObjectCreated() {
         tickerList = loadList.getMap(yamlConfig.getTicker_filePath());
-        networthTrackingList = loadList.getArray(yamlConfig.getNetworthTracking_filePath());
-        portfolioList = loadList.getMap(yamlConfig.getPortfolio_filePath());
-//        System.out.println(tickerList);
     }
 
     @GetMapping("/")
@@ -57,9 +54,14 @@ public class AppController {
         return price.getPrice(company,ticker.getTicker(company,tickerList));
     }
 
+    @GetMapping(value = "/{operation}/{company}/{qty}")
+    public String addStock(@PathVariable("operation") String operation, @PathVariable("company") String company, @PathVariable("qty") String qty) {
+        return portfolio.modifyPortfolio(operation, company, qty);
+    }
+
     @GetMapping("/trackportfolio")
-    public ArrayList<DataPoint> trackPortfolio(){
-        return networthTrackingList = portfolio.trackPortfolio(tickerList,networthTrackingList,portfolioList);
+    public List<TrackNetworth> trackPortfolio(){
+        return portfolio.trackPortfolio(tickerList);
     }
 
     @GetMapping("favicon.ico")
