@@ -1,0 +1,14 @@
+Collect and Store my portfolio's net worth every day and build a graph
+
+Backend
+--------
+Spring boot app. /company -> gives latest price and volume of that company
+
+1. Thinking of making a file to store company_name: ticker_name [To do fast processing]
+2. Added Date:Portfolio value feature for everyday
+3. Organize all the URLs in Application.yaml
+4. Thinking of making a frontend app. [Design must be attractive]
+
+If Stock not in Ticker_company file then call https://www.gateway-tt.in/api/search?text=hdfc -> for live price & volume & change
+
+5. Thinking of sending auto alerts when change> 10%

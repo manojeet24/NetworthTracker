@@ -1,45 +1,57 @@
-Infobeans Technologies Ltd:IFOB
-Laurus Labs Ltd:LAUL
-Gabriel India Ltd:GABR
-Affle (India) Ltd:AFFL
-Affle India Ltd:AFFL
-Permanent Magnets Ltd:PERM
-Tarsons Products Ltd:TARS
-Latent View Analytics Ltd:LATE
-Macpower CNC Machines Ltd:MACP
-HFCL Ltd:HFCL
-Likhitha Infrastructure Ltd:LIKH
-Archit Organosys Ltd:ARCH
-Acrysil Ltd:ACR
-Ami Organics Ltd:AMIO
-Adani Wilmar Ltd:AWL
-Sona BLW Precision Forgings Ltd:SONAC
-Clean Science and Technology Ltd:CLE
-MMP Industries Ltd:MMPI
-Meghmani Finechem Ltd:MFM
-Infobeans Technologies Ltd:IFOB
-Dharamsi Morarji Chemical Co Ltd:DHARA
-Resonance Specialties Ltd:RESO
-CG VAK Software and Exports Ltd:CGV
-Tatva Chintan Pharma Chem Ltd:TATV
-Saksoft Ltd:SAKS
-Samrat Pharmachem Ltd:SAMR
-Time Technoplast Ltd:TIME
-HDFC Life Insurance Company Ltd:HDFL
-Computer Age Management Services Ltd:CAMC
-Route Mobile Ltd:ROUT
-Tanla Platforms Ltd:TNSL
-MTAR Technologies Ltd:MTA
-Prince Pipes and Fittings Ltd:PRCE
-Intellect Design Arena Ltd:INEE
-Happiest Minds Technologies Ltd:HAPP
-KPIT Technologies Ltd:KPIE
-Praj Industries Ltd:PRAJ
-Gujarat Themis Biosyn Ltd:GUJTH
-CE Info Systems Ltd:MAPM
-Kotak Mahindra Bank Ltd:KTKM
-Indian Energy Exchange Ltd:IIAN
-Titan Biotech Ltd:TITAN
-Avantel Ltd:AVA
-Sakar Healthcare Ltd:SAKA
-HDFC Bank Ltd:HDBK
+infobeans technologies ltd:IFOB
+laurus labs ltd:LAUL
+gabriel india ltd:GABR
+affle (india) ltd:AFFL
+lt foods ltd:LTOL
+tarsons products ltd:TARS
+latent view analytics ltd:LATE
+macpower cnc machines ltd:MACP
+hfcl ltd:HFCL
+likhitha infrastructure ltd:LIKH
+archies ltd:ARGG
+acrysil ltd:ACR
+ami organics ltd:AMIO
+adani wilmar ltd:AWL
+sona blw precision forgings ltd:SONAC
+clean science and technology ltd:CLE
+mmp industries ltd:MMPI
+meghmani finechem ltd:MFM
+dharamsi morarji chemical co ltd:DHARA
+lt foods ltd:LTOL
+nucleus software exports ltd:NSEL
+tatva chintan pharma chem ltd:TATV
+saksoft ltd:SAKS
+tarmat ltd:TARM
+time technoplast ltd:TIME
+hdfc life insurance company ltd:HDFL
+computer age management services ltd:CAMC
+route mobile ltd:ROUT
+tanla platforms ltd:TNSL
+mtar technologies ltd:MTA
+prince pipes and fittings ltd:PRCE
+intellect design arena ltd:INEE
+happiest minds technologies ltd:HAPP
+kpit technologies ltd:KPIE
+praj industries ltd:PRAJ
+biocon ltd:BION
+ce info systems ltd:MAPM
+kotak mahindra bank ltd:KTKM
+indian energy exchange ltd:IIAN
+ajooni biotech ltd:AJOO
+avanti feeds ltd:AVNT
+sakar healthcare ltd:SAKA
+hdfc bank ltd:HDBK
+heranba industries ltd:HER
+alkyl amines chemicals ltd:ALKY
+balaji telefilms ltd:BLTE
+balaji amines ltd:BAMN
+gujarat fluorochemicals ltd:GUJL
+arihant capital markets ltd:ARIH
+mrs. bectors food specialities ltd:BEC
+cg vak software and exports ltd:CGV
+archit organosys ltd:ARCH
+gujarat themis biosyn ltd:GUJTH
+permanent magnets ltd:PERM
+resonance specialties ltd:RESO
+samrat pharmachem ltd:SAMR
+titan biotech ltd:TITAN

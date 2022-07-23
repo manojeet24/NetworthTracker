@@ -3,8 +3,7 @@ package com.investingTech.demo.controllers;
 import com.investingTech.demo.models.Portfolio;
 import com.investingTech.demo.models.Stock;
 import com.investingTech.demo.models.TrackNetworth;
-import com.investingTech.demo.service.LivePrice;
-import com.investingTech.demo.service.Ticker;
+import com.investingTech.demo.service.LivePriceTickertape;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,10 +17,7 @@ import java.util.Map;
 public class PortfolioController {
 
     @Autowired
-    LivePrice price;
-
-    @Autowired
-    Ticker ticker;
+    LivePriceTickertape price;
 
     Stock stock = new Stock();
 
@@ -52,8 +48,8 @@ public class PortfolioController {
 
             quantity_float = Float.parseFloat(quantity);
 
-            //finding CMP of the Stock
-            stock = price.getPrice(company, ticker.getTicker(company, tickerList));
+            //finding CMP of the Stock using TickerTape API
+            stock = price.getPrice(company, tickerList);
 
             price_float = Float.parseFloat(stock.getPrice());
 
