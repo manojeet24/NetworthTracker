@@ -24,7 +24,8 @@ import java.util.Map;
 //Next Release
 //ToDo: Add Invested amount column in TrackNetworth => Add Buying Price column in Portfolio Table
 
-@CrossOrigin(origins ="http://localhost:3000/")
+//@CrossOrigin(origins ="http://localhost:3000/")
+@CrossOrigin(origins ="https://trackequity.herokuapp.com/")
 @RestController
 public class AppController {
 
