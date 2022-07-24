@@ -3,7 +3,7 @@ Intellect Design Arena:50
 Affle (India):35
 Adani Wilmar:60
 Infobeans Technologies:130
-CG VAK Software and Exports:100
+CG VAK Software and Exports:125
 Clean Science and Technology:14
 Time Technoplast:350
 Dharamsi Morarji Chemical Co:70
@@ -16,12 +16,12 @@ Gujarat Themis Biosyn:35
 Indian Energy Exchange:60
 Tanla Platforms:10
 Samrat Pharmachem:50
-MTAR Technologies:10
+MTAR Technologies:20
 MMP Industries:70
 HDFC Life Insurance Company:20
 Computer Age Management Services:4
 Likhitha Infrastructure:30
-Happiest Minds Technologies:20
+Happiest Minds Technologies:35
 Archit Organosys:220
 CE Info Systems:5
 HFCL:100

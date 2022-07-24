@@ -1,11 +1,14 @@
 package com.investingTech.demo.controllers;
 
 import com.investingTech.demo.config.YamlConfig;
+import com.investingTech.demo.models.Portfolio;
 import com.investingTech.demo.models.Stock;
 import com.investingTech.demo.models.TrackNetworth;
 import com.investingTech.demo.service.LivePriceTickertape;
 import com.investingTech.demo.utilities.LoadFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
@@ -35,14 +38,35 @@ public class AppController {
     LoadFile loadList;
 
     private Map<String,String> tickerList;
+    private List<Portfolio> portfolioTrackingList;
 
     @Autowired
     PortfolioController portfolio;
+
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
 
     @PostConstruct
     public void runAfterObjectCreated() {
         tickerList = loadList.getMap(yamlConfig.getTicker_filePath());
+    }
+
+    @GetMapping("/")
+    public String load(){
+        return "Search a Company";
+    }
+
+    @GetMapping("/loadDatabase")
+    public void loadDatabase(){
+        Map<String, String> portfolioTrackingList = loadList.getMap(yamlConfig.getPortfolio_filePath());
+        for (String key : portfolioTrackingList.keySet()) {
+            jdbcTemplate.update("INSERT INTO Portfolio (company_name, quantity) VALUES (?, ?)", key, portfolioTrackingList.get(key));
+        }
+        Map<String, String> NetworthTrackingList = loadList.getMap(yamlConfig.getNetworthTracking_filePath());
+        for (String key : NetworthTrackingList.keySet()) {
+            jdbcTemplate.update("INSERT INTO Networth_Track (Date, Networth) VALUES (?, ?)", key, NetworthTrackingList.get(key));
+        }
     }
 
     @GetMapping("/tickerlist")
@@ -57,18 +81,17 @@ public class AppController {
                 mimeType = "application/octet-stream";
             }
             response.setContentType(mimeType);
-            response.setHeader("Content-Disposition", String.format("inline; filename=\"" + file.getName() + "\""));
-            //Here we have mentioned it to show as attachment
-            //response.setHeader("Content-Disposition", String.format("attachment; filename=\"" + file.getName() + "\""));
+            response.setHeader("Content-Disposition", String.format("attachment; filename=\"" + file.getName() + "\""));
             response.setContentLength((int) file.length());
             InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
             FileCopyUtils.copy(inputStream, response.getOutputStream());
         }
     }
 
-    @GetMapping("/")
-    public String load(){
-        return "Search a Company";
+    @GetMapping("/portfoliolist")
+    public List<Portfolio> getPortfolioList(){
+        portfolioTrackingList = jdbcTemplate.query("SELECT * FROM Portfolio", new BeanPropertyRowMapper<>(Portfolio.class));
+        return portfolioTrackingList;
     }
 
     @GetMapping("/loadticker")

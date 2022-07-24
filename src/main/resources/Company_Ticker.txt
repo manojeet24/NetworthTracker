@@ -55,3 +55,4 @@ permanent magnets ltd:PERM
 resonance specialties ltd:RESO
 samrat pharmachem ltd:SAMR
 titan biotech ltd:TITAN
+eicher motors ltd:EICH
