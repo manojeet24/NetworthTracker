@@ -11,4 +11,8 @@ Spring boot app. /company -> gives latest price and volume of that company
 
 If Stock not in Ticker_company file then call https://www.gateway-tt.in/api/search?text=hdfc -> for live price & volume & change
 
-5. Thinking of sending auto alerts when change> 10%
+Frontend: Get Portfolio
+
+Improvement: Scheduler for Auto hit and also prevents the app from sleeping in Heroku
+
+New Feature: Thinking of sending auto alerts when change> 10%

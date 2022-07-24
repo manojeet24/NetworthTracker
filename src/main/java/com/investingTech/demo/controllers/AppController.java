@@ -6,6 +6,7 @@ import com.investingTech.demo.models.TrackNetworth;
 import com.investingTech.demo.service.LivePriceTickertape;
 import com.investingTech.demo.utilities.LoadFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -86,6 +87,7 @@ public class AppController {
         return portfolio.modifyPortfolio(operation, company, qty);
     }
 
+    @Scheduled(fixedDelay = 1800000)    //run after every 30mins to prevent sleeping in Heroku
     @GetMapping("/trackportfolio")
     public List<TrackNetworth> trackPortfolio(){
         return portfolio.trackPortfolio(tickerList);
