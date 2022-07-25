@@ -7,8 +7,7 @@ import com.investingTech.demo.models.TrackNetworth;
 import com.investingTech.demo.service.LivePriceTickertape;
 import com.investingTech.demo.utilities.LoadFile;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
@@ -40,17 +39,19 @@ public class AppController {
 
     private Map<String,String> tickerList;
     private List<Portfolio> portfolioTrackingList;
+    private List<TrackNetworth> trackNetworthList;
 
     @Autowired
-    PortfolioController portfolio;
+    private PortfolioController portfolio;
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private MongoTemplate mongoTemplate;
 
 
     @PostConstruct
     public void runAfterObjectCreated() {
         tickerList = loadList.getMap(yamlConfig.getTicker_filePath());
+        System.out.println("MongoDB Collections:" + mongoTemplate.getCollectionNames());
     }
 
     @GetMapping("/")
@@ -59,15 +60,18 @@ public class AppController {
     }
 
     @GetMapping("/loadDatabase")
-    public void loadDatabase(){
-        Map<String, String> portfolioTrackingList = loadList.getMap(yamlConfig.getPortfolio_filePath());
-        for (String key : portfolioTrackingList.keySet()) {
-            jdbcTemplate.update("INSERT INTO Portfolio (company_name, quantity) VALUES (?, ?)", key, portfolioTrackingList.get(key));
-        }
-        Map<String, String> NetworthTrackingList = loadList.getMap(yamlConfig.getNetworthTracking_filePath());
-        for (String key : NetworthTrackingList.keySet()) {
-            jdbcTemplate.update("INSERT INTO Networth_Track (Date, Networth) VALUES (?, ?)", key, NetworthTrackingList.get(key));
-        }
+    public String loadDatabase(){
+//        Map<String, String> portfolioTrackingList = loadList.getMap(yamlConfig.getPortfolio_filePath());
+//        for (String key : portfolioTrackingList.keySet()) {
+//            Portfolio portfolio = new Portfolio(key,portfolioTrackingList.get(key));
+//            mongoTemplate.save(portfolio);
+//        }
+//        Map<String, String> NetworthTrackingList = loadList.getMap(yamlConfig.getNetworthTracking_filePath());
+//        for (String key : NetworthTrackingList.keySet()) {
+//            TrackNetworth trackNetworth = new TrackNetworth(key,NetworthTrackingList.get(key));
+//            mongoTemplate.save(trackNetworth);
+//        }
+        return "Database Loaded from text files";
     }
 
     @GetMapping("/tickerlist")
@@ -91,8 +95,14 @@ public class AppController {
 
     @GetMapping("/portfoliolist")
     public List<Portfolio> getPortfolioList(){
-        portfolioTrackingList = jdbcTemplate.query("SELECT * FROM Portfolio", new BeanPropertyRowMapper<>(Portfolio.class));
+        portfolioTrackingList = mongoTemplate.findAll(Portfolio.class);
         return portfolioTrackingList;
+    }
+
+    @GetMapping("/networthlist")
+    public List<TrackNetworth> getNetworthList(){
+        trackNetworthList = mongoTemplate.findAll(TrackNetworth.class);
+        return trackNetworthList;
     }
 
     @GetMapping("/loadticker")
@@ -114,7 +124,7 @@ public class AppController {
     @Scheduled(fixedDelay = 1800000)    //run after every 30mins to prevent sleeping in Heroku
     @GetMapping("/trackportfolio")
     public List<TrackNetworth> trackPortfolio(){
-        return portfolio.trackPortfolio(tickerList);
+        return portfolio.updateNetworthTrackingList(tickerList);
     }
 
     @GetMapping("favicon.ico")

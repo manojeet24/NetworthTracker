@@ -5,8 +5,9 @@ import com.investingTech.demo.models.Stock;
 import com.investingTech.demo.models.TrackNetworth;
 import com.investingTech.demo.service.LivePriceTickertape;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -22,20 +23,19 @@ public class PortfolioController {
     Stock stock = new Stock();
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private MongoTemplate mongoTemplate;
 
 
     List<Portfolio> portfolioTrackingList;
     List<TrackNetworth> networthTrackingList;
 
-    //Can be optimised by using Arraylist instead of Map
-    public List<TrackNetworth> trackPortfolio(Map<String,String> tickerList){
+    public List<TrackNetworth> updateNetworthTrackingList(Map<String,String> tickerList){
         float price_float = 0;
         float quantity_float = 0;
         float stock_value = 0;
         float portfolio_value =0;
 
-        portfolioTrackingList = jdbcTemplate.query("SELECT * FROM Portfolio", new BeanPropertyRowMapper<>(Portfolio.class));
+        portfolioTrackingList = mongoTemplate.findAll(Portfolio.class);
 
         //Iterating over my Portfolio and calculating current Portfolio Value
         for (Portfolio value : portfolioTrackingList) {
@@ -64,15 +64,22 @@ public class PortfolioController {
         LocalDate date = LocalDate.now();
         String current_date = date.toString();
 
-        //if Record already exists
-        int alreadyExists = jdbcTemplate.update("UPDATE Networth_Track set Networth = ? where Date = ?", portfolio_value_string, current_date);
+        Query query = new Query();
+        query.addCriteria(Criteria.where("date").is(current_date));
 
-        //else
-        if(alreadyExists == 0){
-            jdbcTemplate.update("INSERT INTO Networth_Track (Date, Networth) VALUES (?, ?)", current_date, portfolio_value_string);
+
+        TrackNetworth latestDay = new TrackNetworth(current_date,portfolio_value_string);
+
+        TrackNetworth findLatestDay = mongoTemplate.findOne(query,TrackNetworth.class);
+
+        //Already Exists then use same ObjectId
+        if(findLatestDay!=null){
+            latestDay.set_id(findLatestDay.get_id());
         }
 
-        networthTrackingList = jdbcTemplate.query("SELECT * FROM Networth_Track", new BeanPropertyRowMapper<>(TrackNetworth.class));
+        mongoTemplate.save(latestDay);
+
+        networthTrackingList = mongoTemplate.findAll(TrackNetworth.class);
 
         return networthTrackingList;
     }
@@ -84,21 +91,25 @@ public class PortfolioController {
         //Add/Remove qty -> update
         //Add new Company -> Insert
 
-        String company_sql = "'" + company + "'";
-
         if(!operation.equalsIgnoreCase("buy") && !operation.equalsIgnoreCase("sell")) return "Invalid Operation";
 
-        portfolioTrackingList = jdbcTemplate.query("SELECT * FROM Portfolio where company_name = " + company_sql, new BeanPropertyRowMapper<>(Portfolio.class));
+        Query query = new Query();
+        query.addCriteria(Criteria.where("company_name").is(company));
 
+        portfolioTrackingList = mongoTemplate.find(query,Portfolio.class);
+
+        //The Company Does not exists in Portfolio
         if(portfolioTrackingList.isEmpty()){
             if(operation.equalsIgnoreCase("buy")) {
-                jdbcTemplate.update("INSERT INTO Portfolio (company_name, quantity) VALUES (?, ?)", company, qty);
+                Portfolio portfolio = new Portfolio(company,qty);
+                mongoTemplate.save(portfolio);
             }
             else{
                 //Remove not allowed on Company which doesn't exist
                 return "Invalid Operation";
             }
         }
+        //Company Exists
         else {
 
             String prev_qty_string = portfolioTrackingList.get(0).getQuantity();
@@ -110,7 +121,9 @@ public class PortfolioController {
                 //adding qty
                 Integer new_qty = prev_qty + Integer.parseInt(qty);
 
-                jdbcTemplate.update("UPDATE Portfolio set quantity = ? where company_name = ?", String.valueOf(new_qty), company);
+                Portfolio portfolio = new Portfolio(company,String.valueOf(new_qty));
+                portfolio.set_id(portfolioTrackingList.get(0).get_id());
+                mongoTemplate.save(portfolio);
             }
             else{
                 //Removing qty
@@ -119,10 +132,12 @@ public class PortfolioController {
                 if(new_qty<0)   return "Invalid Operation";
 
                 if(new_qty == 0){
-                    jdbcTemplate.update("DELETE from Portfolio where company_name = ?", company);
+                    mongoTemplate.remove(query,Portfolio.class);
                 }
                 else{
-                    jdbcTemplate.update("UPDATE Portfolio set quantity = ? where company_name = ?", String.valueOf(new_qty), company);
+                    Portfolio portfolio = new Portfolio(company,String.valueOf(new_qty));
+                    portfolio.set_id(portfolioTrackingList.get(0).get_id());
+                    mongoTemplate.save(portfolio);
                 }
             }
         }
