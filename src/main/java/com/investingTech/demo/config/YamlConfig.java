@@ -12,6 +12,8 @@ public class YamlConfig {
 
     private String get_price_url;
     private String get_ticker_url;
+
+    private String AutoCompleteStock_url;
     private String portfolio_filePath;
     private String ticker_filePath;
     private String networthTracking_filePath;
@@ -54,6 +56,14 @@ public class YamlConfig {
 
     public void setNetworthTracking_filePath(String networthTracking_filePath) {
         this.networthTracking_filePath = networthTracking_filePath;
+    }
+
+    public String getAutoCompleteStock_url() {
+        return AutoCompleteStock_url;
+    }
+
+    public void setAutoCompleteStock_url(String autoCompleteStock_url) {
+        AutoCompleteStock_url = autoCompleteStock_url;
     }
 
     @Bean("YamlConfiguration")
