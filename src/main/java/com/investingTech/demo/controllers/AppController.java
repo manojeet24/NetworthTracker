@@ -4,6 +4,7 @@ import com.investingTech.demo.config.YamlConfig;
 import com.investingTech.demo.models.Portfolio;
 import com.investingTech.demo.models.Stock;
 import com.investingTech.demo.models.TrackNetworth;
+import com.investingTech.demo.service.InvestedValue;
 import com.investingTech.demo.service.LivePriceTickertape;
 import com.investingTech.demo.utilities.LoadFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,9 @@ public class AppController {
     private List<TrackNetworth> trackNetworthList;
 
     @Autowired
+    private InvestedValue investedValue;
+
+    @Autowired
     private PortfolioController portfolio;
 
     @Autowired
@@ -62,14 +66,29 @@ public class AppController {
     @GetMapping("/loadDatabase")
     public String loadDatabase(){
 //        Map<String, String> portfolioTrackingList = loadList.getMap(yamlConfig.getPortfolio_filePath());
+//        List<Portfolio> portfolioList = mongoTemplate.findAll(Portfolio.class);
+//        int index=0;
 //        for (String key : portfolioTrackingList.keySet()) {
-//            Portfolio portfolio = new Portfolio(key,portfolioTrackingList.get(key));
-//            mongoTemplate.save(portfolio);
+//            String qty_val = portfolioTrackingList.get(key);
+//            String[] keyValuePair = qty_val.split(":", 2);
+//            System.out.println("Qty:" + keyValuePair[0]);
+//            System.out.println("Buy Price:" + keyValuePair[1]);
+//            Portfolio p = portfolioList.get(index++);
+//            p.setBuy_price(keyValuePair[1]);
+//            mongoTemplate.save(p);
 //        }
+
 //        Map<String, String> NetworthTrackingList = loadList.getMap(yamlConfig.getNetworthTracking_filePath());
+//        List<TrackNetworth> networthList = mongoTemplate.findAll(TrackNetworth.class);
+//        int index = 0;
 //        for (String key : NetworthTrackingList.keySet()) {
-//            TrackNetworth trackNetworth = new TrackNetworth(key,NetworthTrackingList.get(key));
-//            mongoTemplate.save(trackNetworth);
+//            String val = NetworthTrackingList.get(key);
+//            String[] keyValuePair = val.split(":", 2);
+//            System.out.println("Current Value:" + keyValuePair[0]);
+//            System.out.println("Invested Value:" + keyValuePair[1]);
+//            TrackNetworth t = networthList.get(index++);
+//            t.setInvested(keyValuePair[1]);
+//            mongoTemplate.save(t);
 //        }
         return "Database Loaded from text files";
     }
@@ -116,9 +135,9 @@ public class AppController {
         return price.getPrice(company,tickerList);
     }
 
-    @GetMapping(value = "/{operation}/{company}/{qty}")
-    public String addStock(@PathVariable("operation") String operation, @PathVariable("company") String company, @PathVariable("qty") String qty) {
-        return portfolio.modifyPortfolio(operation, company, qty);
+    @GetMapping(value = "/{operation}/{company}/{qty}/{curr_buy_price}")
+    public String addStock(@PathVariable("operation") String operation, @PathVariable("company") String company, @PathVariable("qty") String qty, @PathVariable("qty") String buyprice) {
+        return portfolio.modifyPortfolio(operation, company, qty, buyprice);
     }
 
     @Scheduled(fixedDelay = 1800000)    //run after every 30mins to prevent sleeping in Heroku

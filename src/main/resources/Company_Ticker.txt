@@ -56,3 +56,4 @@ resonance specialties ltd:RESO
 samrat pharmachem ltd:SAMR
 titan biotech ltd:TITAN
 eicher motors ltd:EICH
+wealth first portfolio managers ltd:WEAL

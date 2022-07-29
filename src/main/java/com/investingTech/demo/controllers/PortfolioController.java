@@ -3,6 +3,7 @@ package com.investingTech.demo.controllers;
 import com.investingTech.demo.models.Portfolio;
 import com.investingTech.demo.models.Stock;
 import com.investingTech.demo.models.TrackNetworth;
+import com.investingTech.demo.service.InvestedValue;
 import com.investingTech.demo.service.LivePriceTickertape;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -19,6 +20,9 @@ public class PortfolioController {
 
     @Autowired
     LivePriceTickertape price;
+
+    @Autowired
+    InvestedValue investedValue;
 
     Stock stock = new Stock();
 
@@ -68,7 +72,7 @@ public class PortfolioController {
         query.addCriteria(Criteria.where("date").is(current_date));
 
 
-        TrackNetworth latestDay = new TrackNetworth(current_date,portfolio_value_string);
+        TrackNetworth latestDay = new TrackNetworth(current_date,portfolio_value_string,investedValue.getInvestedValue());
 
         TrackNetworth findLatestDay = mongoTemplate.findOne(query,TrackNetworth.class);
 
@@ -84,7 +88,7 @@ public class PortfolioController {
         return networthTrackingList;
     }
 
-    public String modifyPortfolio(String operation, String company, String qty){
+    public String modifyPortfolio(String operation, String company, String qty, String buyprice){
 
 //        System.out.println(operation + " " + company + " " + qty);
 
@@ -101,7 +105,7 @@ public class PortfolioController {
         //The Company Does not exists in Portfolio
         if(portfolioTrackingList.isEmpty()){
             if(operation.equalsIgnoreCase("buy")) {
-                Portfolio portfolio = new Portfolio(company,qty);
+                Portfolio portfolio = new Portfolio(company,qty,buyprice);
                 mongoTemplate.save(portfolio);
             }
             else{
@@ -121,7 +125,7 @@ public class PortfolioController {
                 //adding qty
                 Integer new_qty = prev_qty + Integer.parseInt(qty);
 
-                Portfolio portfolio = new Portfolio(company,String.valueOf(new_qty));
+                Portfolio portfolio = new Portfolio(company,String.valueOf(new_qty),buyprice);
                 portfolio.set_id(portfolioTrackingList.get(0).get_id());
                 mongoTemplate.save(portfolio);
             }
@@ -135,7 +139,7 @@ public class PortfolioController {
                     mongoTemplate.remove(query,Portfolio.class);
                 }
                 else{
-                    Portfolio portfolio = new Portfolio(company,String.valueOf(new_qty));
+                    Portfolio portfolio = new Portfolio(company,String.valueOf(new_qty),buyprice);
                     portfolio.set_id(portfolioTrackingList.get(0).get_id());
                     mongoTemplate.save(portfolio);
                 }

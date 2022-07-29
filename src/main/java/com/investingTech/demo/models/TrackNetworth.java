@@ -16,9 +16,13 @@ public class TrackNetworth {
     @Field("networth")
     private String networth;
 
-    public TrackNetworth(String date, String networth) {
+    @Field("invested")
+    private String invested;
+
+    public TrackNetworth(String date, String networth, String invested) {
         this.date = date;
         this.networth = networth;
+        this.invested = invested;
     }
 
     public String get_id() {
@@ -43,5 +47,13 @@ public class TrackNetworth {
 
     public void setNetworth(String networth) {
         this.networth = networth;
+    }
+
+    public String getInvested() {
+        return invested;
+    }
+
+    public void setInvested(String invested) {
+        this.invested = invested;
     }
 }

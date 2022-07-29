@@ -39,8 +39,8 @@ public class LoadFile {
         try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
             lines.filter(line -> line.contains(":"))
                     .forEach(line -> {
-                        String[] keyValuePair = line.split(":", 2);
-                        TrackNetworth trackNetworth = new TrackNetworth(keyValuePair[0],keyValuePair[1]);
+                        String[] keyValuePair = line.split(":", 3);
+                        TrackNetworth trackNetworth = new TrackNetworth(keyValuePair[0],keyValuePair[1],keyValuePair[2]);
                         trackNetworths.add(trackNetworth);
                     });
         } catch (IOException e) {

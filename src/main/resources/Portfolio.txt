@@ -1,39 +1,40 @@
-Macpower CNC Machines:415
-Intellect Design Arena:50
-Affle (India):35
-Adani Wilmar:60
-Infobeans Technologies:130
-CG VAK Software and Exports:125
-Clean Science and Technology:14
-Time Technoplast:350
-Dharamsi Morarji Chemical Co:70
-Acrysil:32
-Route Mobile:11
-KPIT Technologies:35
-Tatva Chintan Pharma Chem:8
-Sona BLW Precision Forgings:26
-Gujarat Themis Biosyn:35
-Indian Energy Exchange:60
-Tanla Platforms:10
-Samrat Pharmachem:50
-MTAR Technologies:20
-MMP Industries:70
-HDFC Life Insurance Company:20
-Computer Age Management Services:4
-Likhitha Infrastructure:30
-Happiest Minds Technologies:35
-Archit Organosys:220
-CE Info Systems:5
-HFCL:100
-Tarsons Products:11
-Prince Pipes and Fittings:10
-Meghmani Finechem:7
-Resonance Specialties:30
-Kotak Mahindra Bank:3
-Permanent Magnets:15
-Latent View Analytics:10
-Ami Organics:5
-Praj Industries:15
-Saksoft:5
-Titan Biotech:15
-Sakar Healthcare:50
+Macpower CNC Machines:415:225
+Intellect Design Arena:50:740
+Affle (India):35:942
+Adani Wilmar:60:500
+Infobeans Technologies:130:230
+CG VAK Software and Exports:125:292
+Clean Science and Technology:14:2052
+Time Technoplast:350:89
+Dharamsi Morarji Chemical Co:70:364
+Acrysil:32:778
+Route Mobile:11:2060
+KPIT Technologies:35:617
+Tatva Chintan Pharma Chem:1:2490
+Sona BLW Precision Forgings:26:670
+Gujarat Themis Biosyn:35:450
+Indian Energy Exchange:60:259
+Tanla Platforms:10:1492
+Samrat Pharmachem:50:260
+MTAR Technologies:20:1288
+MMP Industries:70:180
+HDFC Life Insurance Company:20:623
+Computer Age Management Services:4:2890
+Likhitha Infrastructure:30:360
+Happiest Minds Technologies:35:677
+Archit Organosys:600:48
+CE Info Systems:5:1665
+HFCL:100:78
+Tarsons Products:11:649
+Prince Pipes and Fittings:10:675
+Meghmani Finechem:7:1316
+Resonance Specialties:30:202
+Kotak Mahindra Bank:3:1975
+Permanent Magnets:15:349
+Latent View Analytics:10:520
+Ami Organics:5:1040
+Praj Industries:15:330
+Saksoft:5:935
+Titan Biotech:15:298
+Sakar Healthcare:50:160
+Trident:250:16
