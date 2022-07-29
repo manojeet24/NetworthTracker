@@ -10,12 +10,11 @@ import java.util.List;
 @Component
 public class InvestedValue {
 
-    private float investedValue = 0;
-
     @Autowired
     private MongoTemplate mongoTemplate;
 
     public String getInvestedValue(){
+        float investedValue = 0;
         List<Portfolio> portfolioTrackingList = mongoTemplate.findAll(Portfolio.class);
         for(int i=0;i<portfolioTrackingList.size();i++){
             Integer qty = Integer.parseInt((portfolioTrackingList.get(i).getQuantity()));
