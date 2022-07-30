@@ -136,7 +136,7 @@ public class AppController {
     }
 
     @GetMapping(value = "/{operation}/{company}/{qty}/{curr_buy_price}")
-    public String addStock(@PathVariable("operation") String operation, @PathVariable("company") String company, @PathVariable("qty") String qty, @PathVariable("qty") String buyprice) {
+    public String addStock(@PathVariable("operation") String operation, @PathVariable("company") String company, @PathVariable("qty") String qty, @PathVariable("curr_buy_price") String buyprice) {
         return portfolio.modifyPortfolio(operation, company, qty, buyprice);
     }
 
