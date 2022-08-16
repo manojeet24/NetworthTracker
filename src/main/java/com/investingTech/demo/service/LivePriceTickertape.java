@@ -36,11 +36,7 @@ public class LivePriceTickertape {
                 System.out.println("Found in TickerList");
                 ticker = tickerList.get(New_company);
                 System.out.println("Ticker: " + ticker);
-                String url = yamlConfig.getGet_price_url() + ticker;
-                JSONObject json = new JSONObject(IOUtils.toString(new URL(url), StandardCharsets.UTF_8));
-                System.out.println(url);
-                JSONArray dataArray = (JSONArray) json.get("data");
-                JSONArray pointsArray = (JSONArray) ((JSONObject) dataArray.get(0)).get("points");
+                JSONArray pointsArray = livePrice(ticker);
                 int last_index = pointsArray.length() - 1;
                 JSONObject obj = (JSONObject) pointsArray.get(last_index);
                 volume = (Integer) obj.get("v");
@@ -65,6 +61,21 @@ public class LivePriceTickertape {
         return stock;
     }
 
+    public JSONArray livePrice(String ticker){
+        JSONArray pointsArray = new JSONArray();
+        String url = yamlConfig.getGet_price_url() + ticker;
+        try {
+            JSONObject json = new JSONObject(IOUtils.toString(new URL(url), StandardCharsets.UTF_8));
+            System.out.println(url);
+            JSONArray dataArray = (JSONArray) json.get("data");
+            pointsArray = (JSONArray) ((JSONObject) dataArray.get(0)).get("points");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return pointsArray;
+    }
+
+    //Capitalise the first Character of each word
     private String format(String company){
         String[] arrOfStr = company.split(" ");
         StringBuilder sb = new StringBuilder();

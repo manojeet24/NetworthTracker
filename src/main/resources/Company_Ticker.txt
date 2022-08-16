@@ -57,3 +57,10 @@ samrat pharmachem ltd:SAMR
 titan biotech ltd:TITAN
 eicher motors ltd:EICH
 wealth first portfolio managers ltd:WEAL
+trident ltd:TRIE
+sequent scientific ltd:SEQU
+eimco elecon india ltd:EIMC
+aditya birla sun life amc ltd:ABS
+india pesticides ltd:IPL
+aimco pesticides ltd:AIMC
+lasa supergenerics ltd:LASA

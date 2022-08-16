@@ -17,3 +17,4 @@ Frontend
 5. Get Portfolio Details
 6. Use SVG for Frontend
 7. Add CAGR in Frontend (Animated Number)
+8. Display a Tickertape of Company Logos in which I've invested

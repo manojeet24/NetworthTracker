@@ -7,6 +7,8 @@ import com.investingTech.demo.models.TrackNetworth;
 import com.investingTech.demo.service.InvestedValue;
 import com.investingTech.demo.service.LivePriceTickertape;
 import com.investingTech.demo.utilities.LoadFile;
+import com.investingTech.demo.utilities.keyValue;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -37,6 +39,9 @@ public class AppController {
 
     @Autowired
     LoadFile loadList;
+
+    @Autowired
+    keyValue storeTicker;
 
     private Map<String,String> tickerList;
     private List<Portfolio> portfolioTrackingList;
@@ -124,23 +129,41 @@ public class AppController {
         return trackNetworthList;
     }
 
+    //Load a Map from text file
     @GetMapping("/loadticker")
     public String loadTickerList(){
         tickerList = loadList.getMap(yamlConfig.getTicker_filePath());
         return "tickerList loaded from Company_ticker.txt";
     }
+    //Get CMP of a company
     @GetMapping(value = "/{company}")
     public Stock stock(@PathVariable("company") String company) {
         System.out.println("company:" + company);
         return price.getPrice(company,tickerList);
     }
 
+    //Add Tickers
+    @GetMapping(value = "/{company}/{ticker}")
+    public String addCompanyTicker(@PathVariable("company") String company, @PathVariable("ticker") String ticker){
+        company = company + " Ltd";
+        company = company.toLowerCase();
+        ticker = ticker.toUpperCase();
+        JSONArray pointsArray = price.livePrice(ticker);
+        if(pointsArray.length() == 0){
+            return "Company Name doesn't match with Ticker";
+        }
+        else{
+            storeTicker.addNode(company,ticker,yamlConfig.getTicker_filePath());
+        }
+        return "Added " + company + " : " + ticker;
+    }
+    //Modify Portfolio
     @GetMapping(value = "/{operation}/{company}/{qty}/{curr_buy_price}")
     public String addStock(@PathVariable("operation") String operation, @PathVariable("company") String company, @PathVariable("qty") String qty, @PathVariable("curr_buy_price") String buyprice) {
         return portfolio.modifyPortfolio(operation, company, qty, buyprice);
     }
 
-    @Scheduled(fixedDelay = 1800000)    //run after every 30mins to prevent sleeping in Heroku
+    @Scheduled(fixedDelay = 1800000)    //run after every 30 mins to prevent sleeping in Heroku
     @GetMapping("/trackportfolio")
     public List<TrackNetworth> trackPortfolio(){
         return portfolio.updateNetworthTrackingList(tickerList);
