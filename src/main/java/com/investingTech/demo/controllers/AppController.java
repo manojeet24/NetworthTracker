@@ -4,8 +4,11 @@ import com.investingTech.demo.config.YamlConfig;
 import com.investingTech.demo.models.Portfolio;
 import com.investingTech.demo.models.Stock;
 import com.investingTech.demo.models.TrackNetworth;
+import com.investingTech.demo.service.InvestedValue;
 import com.investingTech.demo.service.LivePriceTickertape;
 import com.investingTech.demo.utilities.LoadFile;
+import com.investingTech.demo.utilities.keyValue;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -37,9 +40,15 @@ public class AppController {
     @Autowired
     LoadFile loadList;
 
+    @Autowired
+    keyValue storeTicker;
+
     private Map<String,String> tickerList;
     private List<Portfolio> portfolioTrackingList;
     private List<TrackNetworth> trackNetworthList;
+
+    @Autowired
+    private InvestedValue investedValue;
 
     @Autowired
     private PortfolioController portfolio;
@@ -62,14 +71,29 @@ public class AppController {
     @GetMapping("/loadDatabase")
     public String loadDatabase(){
 //        Map<String, String> portfolioTrackingList = loadList.getMap(yamlConfig.getPortfolio_filePath());
+//        List<Portfolio> portfolioList = mongoTemplate.findAll(Portfolio.class);
+//        int index=0;
 //        for (String key : portfolioTrackingList.keySet()) {
-//            Portfolio portfolio = new Portfolio(key,portfolioTrackingList.get(key));
-//            mongoTemplate.save(portfolio);
+//            String qty_val = portfolioTrackingList.get(key);
+//            String[] keyValuePair = qty_val.split(":", 2);
+//            System.out.println("Qty:" + keyValuePair[0]);
+//            System.out.println("Buy Price:" + keyValuePair[1]);
+//            Portfolio p = portfolioList.get(index++);
+//            p.setBuy_price(keyValuePair[1]);
+//            mongoTemplate.save(p);
 //        }
+
 //        Map<String, String> NetworthTrackingList = loadList.getMap(yamlConfig.getNetworthTracking_filePath());
+//        List<TrackNetworth> networthList = mongoTemplate.findAll(TrackNetworth.class);
+//        int index = 0;
 //        for (String key : NetworthTrackingList.keySet()) {
-//            TrackNetworth trackNetworth = new TrackNetworth(key,NetworthTrackingList.get(key));
-//            mongoTemplate.save(trackNetworth);
+//            String val = NetworthTrackingList.get(key);
+//            String[] keyValuePair = val.split(":", 2);
+//            System.out.println("Current Value:" + keyValuePair[0]);
+//            System.out.println("Invested Value:" + keyValuePair[1]);
+//            TrackNetworth t = networthList.get(index++);
+//            t.setInvested(keyValuePair[1]);
+//            mongoTemplate.save(t);
 //        }
         return "Database Loaded from text files";
     }
@@ -105,23 +129,41 @@ public class AppController {
         return trackNetworthList;
     }
 
+    //Load a Map from text file
     @GetMapping("/loadticker")
     public String loadTickerList(){
         tickerList = loadList.getMap(yamlConfig.getTicker_filePath());
         return "tickerList loaded from Company_ticker.txt";
     }
+    //Get CMP of a company
     @GetMapping(value = "/{company}")
     public Stock stock(@PathVariable("company") String company) {
         System.out.println("company:" + company);
         return price.getPrice(company,tickerList);
     }
 
-    @GetMapping(value = "/{operation}/{company}/{qty}")
-    public String addStock(@PathVariable("operation") String operation, @PathVariable("company") String company, @PathVariable("qty") String qty) {
-        return portfolio.modifyPortfolio(operation, company, qty);
+    //Add Tickers
+    @GetMapping(value = "/{company}/{ticker}")
+    public String addCompanyTicker(@PathVariable("company") String company, @PathVariable("ticker") String ticker){
+        company = company + " Ltd";
+        company = company.toLowerCase();
+        ticker = ticker.toUpperCase();
+        JSONArray pointsArray = price.livePrice(ticker);
+        if(pointsArray.length() == 0){
+            return "Company Name doesn't match with Ticker";
+        }
+        else{
+            storeTicker.addNode(company,ticker,yamlConfig.getTicker_filePath());
+        }
+        return "Added " + company + " : " + ticker;
+    }
+    //Modify Portfolio
+    @GetMapping(value = "/{operation}/{company}/{qty}/{curr_buy_price}")
+    public String addStock(@PathVariable("operation") String operation, @PathVariable("company") String company, @PathVariable("qty") String qty, @PathVariable("curr_buy_price") String buyprice) {
+        return portfolio.modifyPortfolio(operation, company, qty, buyprice);
     }
 
-    @Scheduled(fixedDelay = 1800000)    //run after every 30mins to prevent sleeping in Heroku
+    @Scheduled(fixedDelay = 1800000)    //run after every 30 mins to prevent sleeping in Heroku
     @GetMapping("/trackportfolio")
     public List<TrackNetworth> trackPortfolio(){
         return portfolio.updateNetworthTrackingList(tickerList);

@@ -1,5 +1,4 @@
-Host: sql6.freesqldatabase.com
-Database name: sql6507071
-Database user: sql6507071
-Database password: R44ftCaxsd
-Port number: 3306
+MongoDB
+-----------
+Database user: sample_user
+Database password: ZOKdSruZ0ShJJ3w1

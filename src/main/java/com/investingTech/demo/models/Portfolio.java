@@ -16,9 +16,13 @@ public class Portfolio {
     @Field("quantity")
     private String quantity;
 
-    public Portfolio(String company_name, String quantity) {
+    @Field("buy_price")
+    private String buy_price;
+
+    public Portfolio(String company_name, String quantity, String buy_price) {
         this.company_name = company_name;
         this.quantity = quantity;
+        this.buy_price = buy_price;
     }
 
     public String get_id() {
@@ -43,5 +47,13 @@ public class Portfolio {
 
     public void setQuantity(String quantity) {
         this.quantity = quantity;
+    }
+
+    public String getBuy_price() {
+        return buy_price;
+    }
+
+    public void setBuy_price(String buy_price) {
+        this.buy_price = buy_price;
     }
 }
