@@ -64,3 +64,8 @@ aditya birla sun life amc ltd:ABS
 india pesticides ltd:IPL
 aimco pesticides ltd:AIMC
 lasa supergenerics ltd:LASA
+vikas lifecare ltd:VIKM
+vaibhav global ltd:VAIB
+jash engineering ltd:JSHE
+jasch industries ltd:JAS
+inditrade Capital ltd:INDIC
