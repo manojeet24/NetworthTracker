@@ -68,4 +68,7 @@ vikas lifecare ltd:VIKM
 vaibhav global ltd:VAIB
 jash engineering ltd:JSHE
 jasch industries ltd:JAS
-inditrade Capital ltd:INDIC
+inditrade capital ltd:INDIC
+ksolves india ltd:KSOL
+5paisa capital ltd:PAIS
+sika interplant ltd:SIKA
